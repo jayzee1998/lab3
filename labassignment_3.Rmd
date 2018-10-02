@@ -1,0 +1,48 @@
+---
+title: "lab_3"
+output: pdf_document
+---
+
+
+problem 2
+```{r}
+install.packages("ggrepel")
+library(ggrepel)
+library(tidyverse)
+library(gapminder)
+data("gapminder")
+
+temp <- gapminder %>%
+  filter(continent == "Europe") %>%
+  filter(gdpPercap >= 40000 & year == 2007)
+
+ggplot(gapminder %>%
+         filter(year == 2007), aes(x = gdpPercap, y = lifeExp)) +
+  geom_point() +
+  geom_text_repel(data =temp, label = temp$country, col = "blue") +
+  labs(x = "GDP per capita", y = "life expetancy") +
+  theme_bw()
+```
+
+```{r}
+ggplot(data = gapminder %>%
+         filter(year == 2007), aes(x = gdpPercap, y = lifeExp)) +
+  geom_point(shape = 21, stroke  = 1.5, fill = "white", size = 2) +
+    geom_text(data = NULL,
+            aes(x = 45000, y = 73 , label = "Countries with \n highest GDP"),
+            col = "black",
+            size = 4 
+            ) +
+  annotate("rect", fill = "red", alpha = 0.2, 
+        xmin = 38000, xmax = 52000,
+        ymin = 75, ymax = 85) +
+  theme_bw() +
+  theme(text = element_text(face = "italic"))
+
+
+
+
+  
+```
+
+
